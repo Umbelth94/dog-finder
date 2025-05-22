@@ -3,6 +3,7 @@
     import { goto } from '$app/navigation'
     import { onMount } from 'svelte'
 
+    //Verify if the user is logged in
     onMount(() => {
         loggedIn.subscribe((value) =>  {
             if (!value) {
@@ -11,7 +12,6 @@
             }
         })
     })
-    //Verify if the user is logged in
 </script>
 
 <h1> This is the doggy search page! </h1>
