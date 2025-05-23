@@ -1,15 +1,53 @@
 <script lang="ts">
     import SearchForm from '$lib/components/SearchForm.svelte';
     import DogCard from '$lib/components/DogCard.svelte';
-    import { getDogsByIds, searchDogs } from '$lib/api/dogs.ts'
-    import { Dog } from '$lib/types.ts'
+    import { getBreeds, getDogsByIds, searchDogs } from '$lib/api/dogs.ts'
+    import { type Dog } from '../../lib/types.ts'
     import { loggedIn } from '../../stores/auth.js'
     import { goto } from '$app/navigation'
     import { onMount } from 'svelte'
     //Verify if the user is logged in
     
+    let breeds: string[] = [];
+    let selectedBreeds: string[] = [];
+    let sort = 'breed:asc';
+    let dogs: Dog[] = [];
+    let next = '';
+    let prev = '';
+    const pageSize = 20;
+    let cursor = '';
     
-    onMount(() => {
+    async function runSearch() {
+        const {resultIds, next: nextCursor, prev: prevCursor } = await searchDogs({
+            breeds: selectedBreeds,
+            sort,
+            size: pageSize,
+            from: cursor
+        });
+    
+        dogs = await getDogsByIds(resultIds);
+        next = nextCursor ?? '';
+        prev = prevCursor ?? '';
+    }
+    
+    function handleSubmit({breeds, sort: sortOption}) {
+        selectedBreeds = breeds;
+        sort = sortOption;
+        cursor = '';
+        runSearch();
+    }
+
+    function goToNext() {
+        cursor = next;
+        runSearch();
+    }
+
+    function goToPrev() {
+        cursor = prev;
+        runSearch();
+    }
+
+    onMount(async () => {
         loggedIn.subscribe((value) =>  {
             if (!value) {
                 console.log('user not logged in');
@@ -17,13 +55,33 @@
             }
         })
 
+        breeds = await getBreeds();
+        runSearch();
 
-    })
+})
 
 
 </script>
 
 <h1> This is the doggy search page! </h1>
-<SearchForm>
+<SearchForm
+    {breeds}
+    {selectedBreeds}
+    {sort}
+    on:submitForm={(e) => handleSubmit(e.detail)}
+/>
 
-</SearchForm>
+<div class="dog-results">
+    {#each dogs as dog}
+        <DogCard {dog} />
+    {/each}
+</div>
+
+<div class="pagination">
+    {#if prev}
+    <button on:click={goToPrev}>Previous</button>
+    {/if}
+    {#if next}
+    <button on:click={goToNext}>Next</button>
+    {/if}
+</div>
