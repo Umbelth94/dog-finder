@@ -2,6 +2,7 @@
     import { loggedIn } from '../../stores/auth.js'
     import { goto } from '$app/navigation'
     import { onMount } from 'svelte'
+    import SearchForm from '$lib/components/SearchForm.svelte';
 
     //Verify if the user is logged in
     onMount(() => {
@@ -15,3 +16,6 @@
 </script>
 
 <h1> This is the doggy search page! </h1>
+<SearchForm>
+    
+</SearchForm>
