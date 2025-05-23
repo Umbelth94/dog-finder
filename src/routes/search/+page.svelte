@@ -63,27 +63,30 @@
 
 </script>
 
-<h1> This is the doggy search page! </h1>
-<SearchForm
-    {breeds}
-    {selectedBreeds}
-    {sort}
-    on:submitForm={(e) => handleSubmit(e.detail)}
-/>
-
-<div class="flex flex-row w-full">
-    <div class="flex flex-wrap mx-5 dog-results">
-        {#each dogs as dog}
-            <DogCard {dog} />
-        {/each}
+<div class="flex flex-col items-center">
+    <SearchForm
+        {breeds}
+        {selectedBreeds}
+        {sort}
+        on:submitForm={(e) => handleSubmit(e.detail)}
+    />
+    
+  
+        <div class="flex flex-wrap justify-center gap-6 px-4">
+            {#each dogs as dog}
+                <DogCard {dog} />
+            {/each}
+        </div>
+   
+    
+    <div class="pagination">
+        {#if prev}
+        <button on:click={goToPrev}>Previous</button>
+        {/if}
+        {#if next}
+        <button on:click={goToNext}>Next</button>
+        {/if}
     </div>
-</div>
 
-<div class="pagination">
-    {#if prev}
-    <button on:click={goToPrev}>Previous</button>
-    {/if}
-    {#if next}
-    <button on:click={goToNext}>Next</button>
-    {/if}
+
 </div>
