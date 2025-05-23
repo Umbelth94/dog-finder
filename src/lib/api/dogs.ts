@@ -12,24 +12,58 @@ export async function getBreeds(): Promise<string[]> {
 
 //Search API for list of dogs based on parameters in searchform component
 export async function searchDogs({
-    breeds,
+    breeds = [],
+    zipCodes = [],
+    ageMin,
+    ageMax,
     sort,
     size,
     from,
 }: {
     breeds: string[],
-    sort: string,
-    size: number,
+    zipCodes?: string[],
+    ageMin?: number;
+    ageMax?: number;
+    sort?: string,
+    size?: number,
     from?: string
-}): Promise<{resultIds: string[], next?: string, prev?: string, total: number}> {
+}) {
     const url = new URL(`${BASE_URL}/dogs/search`);
-    if (breeds.length) url.searchParams.append('breeds',breeds.join(','));
-    if (sort) url.searchParams.set('sort', sort);
-    url.searchParams.set('size', size.toString());
-    if (from) url.searchParams.set('from', from);
 
-    const res = await fetch(url.toString(), {credentials: 'include'});
-    return res.json();
+    if (breeds.length) {
+        for (const breed of breeds) {
+            url.searchParams.append('breeds',breed);
+        }
+    }
+
+    if (zipCodes.length) {
+        for (const zip of zipCodes) {
+            url.searchParams.append('zipCodes',zip);
+        }
+    }
+
+    if (ageMin !== undefined) url.searchParams.set('ageMin', ageMin.toString());
+    if (ageMax !== undefined) url.searchParams.set('ageMax', ageMax.toString());
+    if (sort) url.searchParams.set('sort', sort);
+    if (size) url.searchParams.set('size',size.toString());
+    if (from) url.searchParams.set('from',from);
+
+    console.log(url.toString())
+    const res = await fetch(
+        url.toString(),
+        {
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        }
+    );
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch dog search results');
+    }
+ return res.json();
 }
 
 //Get info about specific dogs by ID's
