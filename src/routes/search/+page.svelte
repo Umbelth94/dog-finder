@@ -71,10 +71,12 @@
     on:submitForm={(e) => handleSubmit(e.detail)}
 />
 
-<div class="dog-results">
-    {#each dogs as dog}
-        <DogCard {dog} />
-    {/each}
+<div class="flex flex-row w-full">
+    <div class="flex flex-wrap mx-5 dog-results">
+        {#each dogs as dog}
+            <DogCard {dog} />
+        {/each}
+    </div>
 </div>
 
 <div class="pagination">
