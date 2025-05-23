@@ -1,7 +1,8 @@
 <script lang="ts">
     import {onMount} from 'svelte';
-    import { getBreeds } from '../api/dogs.ts'
-	import { SvelteURLSearchParams } from 'svelte/reactivity';
+    import { getBreeds, getDogsByIds, searchDogs } from '../api/dogs.ts'
+	import type { Dog } from '$lib/types.ts';
+
 
     let breeds: string[] = [];
 
@@ -12,16 +13,38 @@
         pageSize:20,
         cursor:'',//used for pagination?
     }
+
+    async function runSearch() {
+        const {resultIds: ids, next: nextCursor, prev: prevCursor} = await searchDogs({
+            breeds: searchParams.selectedBreeds,
+            sort: searchParams.sort,
+            size:searchParams.pageSize,
+            from:searchParams.cursor,
+        });
+
+        resultIds= ids;
+        next = nextCursor || '';
+        prev = prevCursor || '';
+        dogs = await getDogsByIds(ids)
+        console.log(dogs);
+
+
+    }
+
+    let resultIds: string[] = [];
+    let dogs: Dog[] = [];
+    let next = '';
+    let prev = '';
     
+    //Run this when the component loads the first time
     onMount(async () => {
         breeds = await getBreeds();
-        console.log(breeds);
-
+        runSearch();
     })
 </script>
 
 <div class="w-[80%] border-2 border-solid ">
-    <form on:submit|preventDefault={() => {console.log('Doggo search')}}>
+    <form on:submit|preventDefault={() => {runSearch}}>
         <label>Breeds 
             {#if breeds.length}
             <select multiple bind:value={searchParams.selectedBreeds} class="w-200px"> 
@@ -33,5 +56,6 @@
             <p>Loading breeds...</p>
             {/if}
         </label>
+        <button type="submit">SUBMIT</button>
     </form>
 </div>
