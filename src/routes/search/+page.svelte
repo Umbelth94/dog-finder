@@ -66,9 +66,12 @@
 <div class="flex flex-col items-center">
     <SearchForm
         {breeds}
-        {selectedBreeds}
-        {sort}
-        on:submitForm={(e) => handleSubmit(e.detail)}
+        bind:selectedBreeds
+        bind:sort
+        on:submitForm={(e) => {
+            cursor ='';
+            runSearch();
+        }}
     />
     
   
