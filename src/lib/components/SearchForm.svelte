@@ -5,23 +5,24 @@
     export let selectedBreeds: string[] = [];
     export let sort: string = 'breed:asc';
 
-    let localSelectedBreeds = [...selectedBreeds];
-    let localSort = sort;
-
     const dispatch = createEventDispatcher();
 
-    $: {
+    function updateSearch() {
         dispatch('submitForm', {
             breeds: selectedBreeds,
             sort
         });
     }
+
+    //Run on change
+    $: selectedBreeds, updateSearch();
+    $: sort, updateSearch();
 </script>
 
-<div
+<form on:submit|preventDefault={updateSearch}
 class="bg-white shadow-md rounded-xl p-6 mb-8 w-full max-w-3xl flex flex-col md:flex-row items-start md:items-end gap-6  ">
     
-<div class="flex-1 w-full">
+    <div class="flex-1 w-full">
     <label class="block text-sm font-medium text-gray-700 mb-1">
         Breeds:
         <select multiple bind:value={selectedBreeds}
@@ -31,9 +32,9 @@ class="bg-white shadow-md rounded-xl p-6 mb-8 w-full max-w-3xl flex flex-col md:
             {/each}
         </select>
     </label>
-</div>
+    </div>
 
-<div class="flex-1 w-full">
+    <div class="flex-1 w-full">
     <label class="block text-sm font-medium text-gray-700 mb-1">
         Sort:
         <select bind:value={sort}
@@ -45,6 +46,6 @@ class="bg-white shadow-md rounded-xl p-6 mb-8 w-full max-w-3xl flex flex-col md:
         </select>
     </label>
 
-</div>
+    </div>
 
-</div>
+</form>
