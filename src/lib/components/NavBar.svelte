@@ -1,5 +1,5 @@
 <script lang='ts'>
-    import { loggedIn } from '../../stores/auth.js'
+    import { loggedIn } from '../../stores/auth.ts'
     import { goto } from '$app/navigation'
 
     function logout() {
