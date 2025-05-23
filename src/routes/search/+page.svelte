@@ -6,8 +6,10 @@
     import { loggedIn } from '../../stores/auth.js'
     import { goto } from '$app/navigation'
     import { onMount } from 'svelte'
-    //Verify if the user is logged in
+	import { extractCursorFromUrl } from '$lib/api/apiHelpers.ts';
+
     
+
     let breeds: string[] = [];
     let selectedBreeds: string[] = [];
     let sort = 'breed:asc';
@@ -18,19 +20,25 @@
     let cursor = '';
     
     async function runSearch() {
+        console.log('Running search with cursor:', cursor);
+        console.log('Selected breeds:', selectedBreeds);
+        console.log('Sort:', sort);
+
         const {resultIds, next: nextCursor, prev: prevCursor } = await searchDogs({
             breeds: selectedBreeds,
             sort,
             size: pageSize,
             from: cursor
         });
-    
+
+        console.log(resultIds, 'nextcursor + ', nextCursor, 'prev cursor + ' ,prevCursor);
+        console.log('Cursor  being used for search:', cursor);
         dogs = await getDogsByIds(resultIds);
-        next = nextCursor ?? '';
-        prev = prevCursor ?? '';
+        next = extractCursorFromUrl(nextCursor);
+        prev = extractCursorFromUrl(prevCursor);
     }
     
-    function handleSubmit({breeds, sort: sortOption}) {
+    function handleSubmit({breeds, sort: sortOption}: {breeds: string[], sort: string}) {
         selectedBreeds = breeds;
         sort = sortOption;
         cursor = '';
@@ -48,6 +56,7 @@
     }
 
     onMount(async () => {
+        //Verify if the user is logged in
         loggedIn.subscribe((value) =>  {
             if (!value) {
                 console.log('user not logged in');
@@ -55,6 +64,7 @@
             }
         })
 
+        //Run the dog search API on page load
         breeds = await getBreeds();
         runSearch();
 
@@ -66,11 +76,10 @@
 <div class="flex flex-col items-center">
     <SearchForm
         {breeds}
-        bind:selectedBreeds
-        bind:sort
+        {selectedBreeds}
+        {sort}
         on:submitForm={(e) => {
-            cursor ='';
-            runSearch();
+            handleSubmit(e.detail);
         }}
     />
     
@@ -82,12 +91,19 @@
         </div>
    
     
-    <div class="pagination">
+    <div class="pagination my-5">
         {#if prev}
-        <button on:click={goToPrev}>Previous</button>
+        <button 
+            on:click={goToPrev}
+            class="w-[8rem] bg-blue-500 text-white px-4 py-2 rounded transition-all duration-150 ease-in-out hover:bg-blue-600 active:scale-95 disabled:bg-blue-300 disabled:cursor-not-allowed"
+            disabled={!prev}
+            >Previous
+            </button>
         {/if}
         {#if next}
-        <button on:click={goToNext}>Next</button>
+        <button on:click={goToNext}
+        class="w-[8rem] bg-blue-500 text-white px-4 py-2 rounded transition-all duration-150 ease-in-out hover:bg-blue-600 active:scale-95 disabled:bg-blue-300 disabled:cursor-not-allowed"
+    disabled={!next}>Next</button>
         {/if}
     </div>
 
