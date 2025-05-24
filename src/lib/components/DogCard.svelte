@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {favoriteIds, favoriteToggle } from '../../stores/favorites.ts'
+  import {favoriteIds} from '../../stores/favorites.ts'
 
   export let dog: {
     id: string;
@@ -28,7 +28,7 @@ $: isFavorite = $favoriteIds.includes(dog.id);
   <div class="relative">
     <button 
         on:click={() => toggleFavorite(dog.id)}
-        class="absolute top-2 right-2 text-yellow-400 hover:scale-110 transition-transform duration-150"
+        class="text-2xl absolute top-55 right-1 text-yellow-400 hover:scale-110 transition-transform duration-150"
         aria-label="Toggle favorite"
     >
         {#if isFavorite}
