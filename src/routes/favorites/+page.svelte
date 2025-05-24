@@ -1,11 +1,16 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { getDogsByIds } from "$lib/api/dogs.ts";
+    import { getDogsByIds, matchDogByIds } from "$lib/api/dogs.ts";
     import { favoriteIds } from "../../stores/favorites.ts";
     import DogCard from "$lib/components/DogCard.svelte";
 	import type { Dog } from "$lib/types.ts";
 
     let dogs: Dog[] = [];
+
+    async function handleMatch(){
+        const test = await matchDogByIds((dogs.map(dog => dog.id)));
+        console.log(test)
+    }
 
     onMount(() => {
         const unsubscribe = favoriteIds.subscribe(async (ids) => {
@@ -33,6 +38,8 @@
 				<DogCard {dog} />
 			{/each}
 		</div>
+
+        <button on:click={() => handleMatch()}>Make a Match!</button>
 	{:else}
 		<p class="text-gray-600 mt-4">No favorites yet. Go find your match!</p>
 	{/if}

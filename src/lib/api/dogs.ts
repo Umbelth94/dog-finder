@@ -76,3 +76,13 @@ export async function getDogsByIds(ids: string[]) : Promise<Dog[]>{
     });
     return res.json();
 }
+
+export async function matchDogByIds(ids:string[]) : Promise<Dog[]>{
+    const res = await fetch(`${BASE_URL}/dogs/match`, {
+        method:'POST',
+        headers: { 'Content-Type': 'application/json'},
+        credentials: 'include',
+        body: JSON.stringify(ids),
+    })
+    return await res.json();
+}
