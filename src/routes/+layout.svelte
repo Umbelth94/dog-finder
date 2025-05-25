@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import '../app.css';
 
 	import NavBar from '../lib/components/NavBar.svelte'
+	import { loggedIn } from '../stores/auth.ts';
+	import { goto } from '$app/navigation';
 	let { children } = $props();
 
 	onMount(async () => {
@@ -13,6 +16,11 @@
 			goto('/');
 		}
 	})
+
+
+	function verifyLogin() {
+		throw new Error('Function not implemented.');
+	}
 </script>
 
 <NavBar/>
