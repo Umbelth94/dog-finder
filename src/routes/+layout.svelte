@@ -3,7 +3,7 @@
 	import '../app.css';
 
 	import NavBar from '../lib/components/NavBar.svelte'
-	import { loggedIn } from '../stores/auth.ts';
+	import { loggedIn, verifyLogin } from '../stores/auth.ts';
 	import { goto } from '$app/navigation';
 	let { children } = $props();
 
@@ -17,10 +17,6 @@
 		}
 	})
 
-
-	function verifyLogin() {
-		throw new Error('Function not implemented.');
-	}
 </script>
 
 <NavBar/>
