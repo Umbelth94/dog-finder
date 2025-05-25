@@ -66,14 +66,6 @@
     }
 
     onMount(async () => {
-        //Verify if the user is logged in
-        loggedIn.subscribe((value) =>  {
-            if (!value) {
-                console.log('user not logged in');
-                goto('/')
-            }
-        })
-
         //Run the dog search API on page load
         breeds = await getBreeds();
         runSearch();
