@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {favoriteIds} from '../../stores/favorites.ts'
+  import {favoriteIds, toggleFavorite} from '../../stores/favorites.ts'
 
   export let dog: {
     id: string;
@@ -9,17 +9,6 @@
     zip_code: string;
     breed: string;
   };
-
- 
-  function toggleFavorite(dogId: string) {
-    favoriteIds.update(ids => 
-        ids.includes(dogId) 
-            ? ids.filter(id => id !== dogId) 
-            : [...ids, dogId]
-           
-    );
-   
-}
 
 $: isFavorite = $favoriteIds.includes(dog.id);
 </script>
