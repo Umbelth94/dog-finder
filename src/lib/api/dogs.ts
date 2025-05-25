@@ -7,6 +7,9 @@ export async function getBreeds(): Promise<string[]> {
     const res = await fetch(`${BASE_URL}/dogs/breeds`, {
         credentials: 'include',
     });
+    if (!res.ok){
+        throw new Error('Failed to fetch dog breeds');
+    }
     return res.json ();
 }
 
