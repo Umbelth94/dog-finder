@@ -74,5 +74,25 @@ export async function getDogsByIds(ids: string[]) : Promise<Dog[]>{
         credentials: 'include',
         body: JSON.stringify(ids),
     });
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch dogs by ID')
+    }
     return res.json();
+}
+
+export async function matchDogByIds(ids:string[]) : Promise<string[]>{
+    const res = await fetch(`${BASE_URL}/dogs/match`, {
+        method:'POST',
+        headers: { 'Content-Type': 'application/json'},
+        credentials: 'include',
+        body: JSON.stringify(ids),
+    })
+    if (!res.ok) {
+        throw new Error('Failed to match a dog by ID')
+    }
+
+    const data = await res.json();
+    return Array.isArray(data) ? data : [data.match]
+    
 }
