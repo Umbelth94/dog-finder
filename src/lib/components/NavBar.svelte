@@ -13,7 +13,7 @@
     }
 </script>
 
-<nav>
+<nav class='flex justify-end items-center p-1 bg-[#f3f3f3] gap-10'>
     {#if $loggedIn}
     <button on:click={logout}>Logout</button>
     <a href="/search">Doggy Search</a>
@@ -24,12 +24,3 @@
     {/if}
 </nav>
 
-<style>
-    nav {
-        display: flex;
-        justify-content:space-between;
-        align-items:center;
-        padding: 1rem;
-        background:#f3f3f3;
-    }
-</style>

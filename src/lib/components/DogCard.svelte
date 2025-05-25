@@ -1,6 +1,8 @@
 <script lang="ts">
   import {favoriteIds, toggleFavorite} from '../../stores/favorites.ts'
 
+  export let large = false;
+
   export let dog: {
     id: string;
     img: string;
@@ -13,7 +15,8 @@
 $: isFavorite = $favoriteIds.includes(dog.id);
 </script>
 
-<div class="border-solid border-1 rounded-[0.5rem] p-[1rem] mx-3 my-3 w-[300px] shadow-md transition ease hover:scale-[1.02]">
+<div class={`border border-solid rounded-[0.5rem] p-[1rem] shadow-md transition ease hover:scale-[1.02]
+    ${large ? 'w-full max-w-md mx-auto text-lg' : 'w-64 mx-3 my-3'}`}>
   <div class="relative">
     <button 
         on:click={() => toggleFavorite(dog.id)}
