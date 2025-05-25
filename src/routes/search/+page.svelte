@@ -20,6 +20,7 @@
     let prev = '';
     const pageSize = 20;
     let cursor = '';
+    let zipCode: string = '';
     
     async function runSearch() {
 
@@ -29,7 +30,8 @@
             ageMin: ageMin ?? undefined,
             ageMax: ageMax ?? undefined,
             size: pageSize,
-            from: cursor
+            from: cursor,
+            zipCodes: zipCode ? [zipCode] : []
         });
 
         dogs = await getDogsByIds(resultIds);
@@ -41,17 +43,21 @@
         breeds, 
         sort: sortOption,
         ageMin:submittedAgeMin,
-        ageMax:submittedAgeMax}: 
-        {breeds: string[], 
-            sort: string,
+        ageMax:submittedAgeMax,
+        zipCode: submittedZipCode
+    }: {
+        breeds: string[], 
+        sort: string,
         ageMin?:number | undefined,
-        ageMax?:number | undefined}) {
-
+        ageMax?:number | undefined,
+        zipCode:string
+    }) {
         selectedBreeds = breeds;
         sort = sortOption;
         ageMin = submittedAgeMin ?? undefined;
         ageMax = submittedAgeMax ?? undefined;
         cursor = '';
+        zipCode = submittedZipCode;
         runSearch();
     }
 
@@ -82,6 +88,7 @@
         {sort}
         {ageMin}
         {ageMax}
+        {zipCode}
         on:submitForm={(e) => {
             handleSubmit(e.detail);
         }}
