@@ -15,7 +15,7 @@
 $: isFavorite = $favoriteIds.includes(dog.id);
 </script>
 
-<div class={`border border-solid rounded-[0.5rem] p-[1rem] shadow-md transition ease hover:scale-[1.02]
+<div class={`bg-gradient-to-b from-pink-200 to-purple-300 border border-solid rounded-[0.5rem] p-[1rem] shadow-md transition ease hover:scale-[1.02]
     ${large ? 'w-full max-w-md mx-auto text-lg' : 'w-64 mx-3 my-3'}`}>
   <div class="relative">
     <button 

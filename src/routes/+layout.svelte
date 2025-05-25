@@ -19,6 +19,9 @@
 
 </script>
 
-<NavBar/>
+<main class='min-h-screen bg-gradient-to-br from-yellow-100 to-pink-100'>
+	<NavBar/>
+	{@render children()}
 
-{@render children()}
+</main>
+
