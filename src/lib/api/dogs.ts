@@ -48,7 +48,6 @@ export async function searchDogs({
     if (size) url.searchParams.set('size',size.toString());
     if (from) url.searchParams.set('from',from);
 
-    console.log(url.toString())
     const res = await fetch(
         url.toString(),
         {
