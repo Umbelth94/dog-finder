@@ -12,6 +12,8 @@
 
     let breeds: string[] = [];
     let selectedBreeds: string[] = [];
+    let ageMin: number | undefined = undefined;
+    let ageMax: number | undefined = undefined;;
     let sort = 'breed:asc';
     let dogs: Dog[] = [];
     let next = '';
@@ -20,27 +22,35 @@
     let cursor = '';
     
     async function runSearch() {
-        console.log('Running search with cursor:', cursor);
-        console.log('Selected breeds:', selectedBreeds);
-        console.log('Sort:', sort);
 
         const {resultIds, next: nextCursor, prev: prevCursor } = await searchDogs({
             breeds: selectedBreeds,
             sort,
+            ageMin: ageMin ?? undefined,
+            ageMax: ageMax ?? undefined,
             size: pageSize,
             from: cursor
         });
 
-        console.log(resultIds, 'nextcursor + ', nextCursor, 'prev cursor + ' ,prevCursor);
-        console.log('Cursor  being used for search:', cursor);
         dogs = await getDogsByIds(resultIds);
         next = extractCursorFromUrl(nextCursor);
         prev = extractCursorFromUrl(prevCursor);
     }
     
-    function handleSubmit({breeds, sort: sortOption}: {breeds: string[], sort: string}) {
+    function handleSubmit({
+        breeds, 
+        sort: sortOption,
+        ageMin:submittedAgeMin,
+        ageMax:submittedAgeMax}: 
+        {breeds: string[], 
+            sort: string,
+        ageMin?:number | undefined,
+        ageMax?:number | undefined}) {
+
         selectedBreeds = breeds;
         sort = sortOption;
+        ageMin = submittedAgeMin ?? undefined;
+        ageMax = submittedAgeMax ?? undefined;
         cursor = '';
         runSearch();
     }
@@ -78,6 +88,8 @@
         {breeds}
         {selectedBreeds}
         {sort}
+        {ageMin}
+        {ageMax}
         on:submitForm={(e) => {
             handleSubmit(e.detail);
         }}

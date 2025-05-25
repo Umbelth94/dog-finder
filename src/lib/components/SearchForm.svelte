@@ -4,19 +4,25 @@
     export let breeds:string[] = [];
     export let selectedBreeds: string[] = [];
     export let sort: string = 'breed:asc';
+    export let ageMin: number | null = null;
+    export let ageMax: number | null = null;
 
     const dispatch = createEventDispatcher();
 
     function updateSearch() {
         dispatch('submitForm', {
             breeds: selectedBreeds,
-            sort
+            sort,
+            ageMin,
+            ageMax
         });
     }
 
     //Run on change
     $: selectedBreeds, updateSearch();
     $: sort, updateSearch();
+    $: ageMin, updateSearch();
+    $: ageMax, updateSearch();
 </script>
 
 <form on:submit|preventDefault={updateSearch}
@@ -34,18 +40,38 @@ class="bg-white shadow-md rounded-xl p-6 mb-8 w-full max-w-3xl flex flex-col md:
     </label>
     </div>
 
-    <div class="flex-1 w-full">
-    <label class="block text-sm font-medium text-gray-700 mb-1">
-        Sort:
-        <select bind:value={sort}
-        class="w-full rounded-md border border-gray-300 p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-            <option value="breed:asc">Breed (A-Z)</option>
-            <option value="breed:desc">Breed (Z-A)</option>
-            <option value="age:asc">Age (Youngest)</option>
-            <option value="age:desc">Age (Oldest)</option>
-        </select>
-    </label>
+    <div>
+       
+        <div class="w-full">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Min Age:
+                <input type="number" min="0" bind:value={ageMin}
+                class="w-full rounded-md border border-gray-300 p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
 
+            </label>
+        </div>
+        
+    
+        <div class="w-full">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Max Age:
+                <input type="number" min="0" bind:value={ageMax}
+                class="w-full rounded-md border border-gray-300 p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+
+            </label>
+        </div>
+        
+        <div class="flex-1 w-full">
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+            Sort:
+            <select bind:value={sort}
+            class="w-full rounded-md border border-gray-300 p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <option value="breed:asc">Breed (A-Z)</option>
+                <option value="breed:desc">Breed (Z-A)</option>
+                <option value="age:asc">Age (Youngest)</option>
+                <option value="age:desc">Age (Oldest)</option>
+            </select>
+        </label>
+    </div>
+    
     </div>
 
 </form>
