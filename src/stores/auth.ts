@@ -19,4 +19,16 @@ if (browser) {
     });
 }
 
-//TODO: Add a check that will set loggedIn to false if it pings the API and it is not authorized (In case of timeout)
+//This hits an endpoint that requires the user to be logged in.  I am using it to verify if the user is logged in during start up so that the local storage doesn't think the user is logged in when they don't have a login cookie
+export async function verifyLogin(): Promise<boolean> {
+    try {
+        const res = await fetch('https://frontend-take-home-service.fetch.com/dogs/breeds', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        return res.ok;
+    } catch (error) {
+        console.error('Error verifying login:', error);
+        return false;
+    }
+}
