@@ -1,58 +1,26 @@
-# Svelte library
+# Dog Finder
 
-Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
+My first application using Sveltekit!  This app was a coding exercise that I used as an opportunity to get familiar with the front-end aspects of the Svelte framework.  I am more familiar with Next.js but the similarities between the two frameworks helped me start with a good foundation and work out from there.  Additionally, the API I was using handled it's own authentication which made things a lot easier for me.  The app is a simple dog finding service that hits a pre-configured API to find dogs based on your favorite breed and age.  After you have selected a few dogs to be your favorites, the favorites page will pair you up with one.  After that, the rest of the leg work is on you to imagine your new life with your paired dog because the app really doesn't do anything else.  
 
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+# Live Link
+[Vercel Link](https://dog-finder-pink.vercel.app/)
 
-## Creating a project
+# Installation 
 
-If you're seeing this, you've probably already done this step. Congrats!
+- Fork or clone this repo
+- type 'NPM Install' in the terminal to install all of the packages
+- type 'NPM run dev' in the terminal to start up the dev environment server in order to use the application
 
-```bash
-# create a new project in the current directory
-npx sv create
+# Usage
 
-# create a new project in my-app
-npx sv create my-app
-```
+After logging in, navigate to the search page to find listings for dogs based on breeds, age, and zip code.  Multiple breeds can be selected and then sorted by alphabetical order, as well as age.  On the dog cards themselves, clicking on the star will "favorite" a dog and add it to your favorites list.  Navigating to the favorites page will show you all of the dogs you have favorited.  Once you have some dogs favorited, you can click the "Make a match" button to be randomly assigned a dog from your list of favorite dogs.  
 
-## Developing
+# In Progress
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+I gave myself a week to at least fulfill the minimum requirements of the exercise and make things look nice, as well as cut out any of the jankiness of the UI that comes with learning all of the quirks of a new framework.  That said, there is some functionality that I still intend to add to give myself some more practice with not just Svelte, but front-end design in general.  Here they are in order of priority: 
 
-```bash
-npm run dev
+- Make the location searching more robust.  i.e. Zipcodes using a general area around them instead of only finding dogs that match the specific zip code, and being able to search by city/state.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+- Add page numbers to the search page instead of the simple next/back button I have to handle pagination.  (I have not done much pagination before so that was a rabbit hole I was trying to avoid spending too much time on)
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
-
-## Building
-
-To build your library:
-
-```bash
-npm run package
-```
-
-To create a production version of your showcase app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
-```
+- Adding a more exciting reveal to the dog matcher.  I want it to be the digital equivalent of a glitter cannon.  
