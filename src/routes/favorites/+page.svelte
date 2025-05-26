@@ -55,10 +55,10 @@
 <div class="flex flex-col items-center">
     <div class="m-auto flex flex-col items-center mb-8 text-center space-y-3">
         <h1 class="text-4xl font-bold text-purple-700">Favorites</h1>
-        <h1 class="text-lg text-gray-800">Click the match button at the bottom of the page to get paired with one of your favorites</h1>
     </div>
-
+    
 	{#if dogs.length}
+        <h1 class="text-lg text-gray-800">Click the match button at the bottom of the page to get paired with one of your favorites</h1>
 		<div class="flex flex-wrap justify-center gap-6">
 			{#each dogs as dog}
 				<DogCard {dog} />
@@ -67,7 +67,7 @@
 
         <button on:click={() => handleMatch()} class="bg-purple-500 text-white px-8 py-4 my-4 text-lg rounded-full hover:bg-purple-600 transition shadow-lg">Make a Match!</button>
 	{:else}
-		<p class="text-gray-800 mt-4">No favorites yet. Go find your match!</p>
+		<p class="text-gray-800 mt-4">No favorites yet. Go favorite some dogs in the dog search page and come back to find a match!</p>
 	{/if}
 
     {#if showModal && matchedDog}
