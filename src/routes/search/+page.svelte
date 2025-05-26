@@ -83,8 +83,8 @@
 <div class="flex flex-col items-center">
     <div class="m-auto flex flex-col items-center mb-8 text-center space-y-3">
         <h1 class="text-4xl font-bold text-purple-700">Dog Search</h1>
-        <h1 class="text-lg text-gray-800">Search for some dogs!</h1>
-        <h1 class="text-lg text-gray-800">Favorite them by clicking on the stars, and then head to the favorites page to pick one out!</h1>
+        <h1 class="text-lg text-gray-800">Search for a new friend</h1>
+        <h1 class="text-lg text-gray-800">Favorite them by clicking on the stars, and then head to the favorites page to have one picked out!</h1>
     
     </div>
     <SearchForm
@@ -111,14 +111,14 @@
         {#if prev}
         <button 
             on:click={goToPrev}
-            class="w-[8rem] bg-blue-500 text-white px-4 py-2 rounded transition-all duration-150 ease-in-out hover:bg-blue-600 active:scale-95 disabled:bg-blue-300 disabled:cursor-not-allowed"
+            class="w-[8rem] bg-purple-500 text-white px-4 py-2 rounded transition-all duration-150 ease-in-out hover:bg-purple-600 active:scale-95 disabled:bg-blue-300 disabled:cursor-not-allowed"
             disabled={!prev}
             >Previous
             </button>
         {/if}
         {#if next}
         <button on:click={goToNext}
-        class="w-[8rem] bg-blue-500 text-white px-4 py-2 rounded transition-all duration-150 ease-in-out hover:bg-blue-600 active:scale-95 disabled:bg-blue-300 disabled:cursor-not-allowed"
+        class="w-[8rem] bg-purple-500 text-white px-4 py-2 rounded transition-all duration-150 ease-in-out hover:bg-purple-600 active:scale-95 disabled:bg-blue-300 disabled:cursor-not-allowed"
     disabled={!next}>Next</button>
         {/if}
     </div>
