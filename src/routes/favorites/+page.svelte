@@ -52,8 +52,11 @@
     }
 </script>
 
-<div class="flex flex-col items-center mt-6 px-4">
-	<h1 class="text-2xl font-bold mb-4">Your Favorite Dogs</h1>
+<div class="flex flex-col items-center">
+    <div class="m-auto flex flex-col items-center mb-8 text-center space-y-3">
+        <h1 class="text-4xl font-bold text-purple-700">Favorites</h1>
+        <h1 class="text-lg text-gray-800">Click the match button at the bottom of the page to get paired with one of your favorites</h1>
+    </div>
 
 	{#if dogs.length}
 		<div class="flex flex-wrap justify-center gap-6">
@@ -62,13 +65,13 @@
 			{/each}
 		</div>
 
-        <button on:click={() => handleMatch()} class="w-[8rem] bg-blue-500 text-white my-5 px-4 py-2 rounded transition-all duration-150 ease-in-out hover:bg-blue-600 active:scale-95 disabled:bg-blue-300 disabled:cursor-not-allowed">Make a Match!</button>
+        <button on:click={() => handleMatch()} class="bg-purple-500 text-white px-8 py-4 my-4 text-lg rounded-full hover:bg-purple-600 transition shadow-lg">Make a Match!</button>
 	{:else}
-		<p class="text-gray-600 mt-4">No favorites yet. Go find your match!</p>
+		<p class="text-gray-800 mt-4">No favorites yet. Go find your match!</p>
 	{/if}
 
     {#if showModal && matchedDog}
-        <MatchModal onClose={() => (showModal = false)}>
+        <MatchModal dog={matchedDog} onClose={() => (showModal = false)}>
             <DogCard dog={matchedDog} large/>
         </MatchModal>
 
