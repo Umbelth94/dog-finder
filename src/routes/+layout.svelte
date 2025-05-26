@@ -19,7 +19,7 @@
 
 </script>
 
-<main class='min-h-screen bg-gradient-to-br from-yellow-100 to-pink-100'>
+<main class='min-h-screen bg-radial from-[#9A348E] to-[#E2AFDE] pt-20'>
 	<NavBar/>
 	{@render children()}
 

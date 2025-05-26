@@ -80,8 +80,13 @@
 
 
 </script>
-
 <div class="flex flex-col items-center">
+    <div class="m-auto flex flex-col items-center mb-8 text-center space-y-2">
+        <h1 class="text-4xl font-bold text-purple-700">Doggy Search</h1>
+        <h1 class="text-lg text-gray-800">Search for some dogs!</h1>
+        <h1 class="text-lg text-gray-800">Favorite them by clicking on the stars, and then head to the favorites page to pick one out!</h1>
+    
+    </div>
     <SearchForm
         {breeds}
         {selectedBreeds}
