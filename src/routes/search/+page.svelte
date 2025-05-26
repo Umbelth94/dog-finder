@@ -3,8 +3,6 @@
     import DogCard from '$lib/components/DogCard.svelte';
     import { getBreeds, getDogsByIds, searchDogs } from '$lib/api/dogs.ts'
     import { type Dog } from '../../lib/types.ts'
-    import { loggedIn } from '../../stores/auth.js'
-    import { goto } from '$app/navigation'
     import { onMount } from 'svelte'
 	import { extractCursorFromUrl } from '$lib/api/apiHelpers.ts';
 
