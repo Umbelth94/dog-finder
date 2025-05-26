@@ -1,24 +1,10 @@
 <script lang="ts">
-	import { loggedIn } from '../stores/auth.ts';
 	import { goto } from '$app/navigation';
 
 	function handleLoginClick() {
 		goto('/login');
 	}
 
-	function handleLogoutClick() {
-		fetch('https://frontend-take-home-service.fetch.com/auth/logout', {
-			method: 'POST',
-			credentials: 'include'
-		}).then(() => {
-			loggedIn.set(false);
-			goto('/');
-		});
-	}
-
-	function startMatching() {
-		goto('/search');
-	}
 </script>
 
 <section class="min-h-screen flex flex-col items-center justify-center text-center p-8">

@@ -23,7 +23,7 @@
         }
 
         try {
-            const [match] = await getDogsByIds([matchId]); // Wrap in array
+            const [match] = await getDogsByIds([matchId]); // Wrap single dog in array because that's what the API expects
             matchedDog = match;
             showModal = true;
         } catch (error) {
