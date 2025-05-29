@@ -3,5 +3,6 @@
 export function extractCursorFromUrl(url:string | undefined): string {
     if (!url) return '';
     const parsedUrl = new URL(`https://thisdoesntmatter.com${url}`); //Dummy base url since we only need query params
+    console.log('logging url from extractCursorfunction', url);
     return parsedUrl.searchParams.get('from') ?? '';
 }

@@ -32,7 +32,11 @@
             zipCodes: zipCode ? [zipCode] : []
         });
 
+        console.log('searchdogs next and prev element', nextCursor + prevCursor)
         dogs = await getDogsByIds(resultIds);
+
+        //prevCursor and nextCursor return object is a string of  '/dogs/search?sort=breed%3Asc&size=20&from=20'
+        //The extractCursorFromUrl function extracts just the number after from, as that is the value that needs to be passed into the search parameters for pagination
         next = extractCursorFromUrl(nextCursor);
         prev = extractCursorFromUrl(prevCursor);
     }
